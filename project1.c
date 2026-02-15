@@ -9,7 +9,7 @@ void generateInFile(int n);
 
 int main()
 {
-    int n = 100;
+    int n = 10;
     size_t x = 100;
     size_t read;
     int num;
@@ -48,8 +48,11 @@ int main()
     
     //4. Keep the following code to measure the running time of the selection sort algorithm.
 
+    printArray(A, n);
+    printf("\n");
     //start1 = clock();
     selectionSort(A, n);
+    printArray(A, n);
     //end1 = clock();
     //time_spent1 = (double)(end1 - start1) / CLOCKS_PER_SEC;
     //printf("Time taken by selectionSort algorithm is %f sec.\n",time_spent1);
@@ -63,7 +66,19 @@ int main()
 //selection sort function
 void selectionSort(int A[], int n) // n is the size of A
 {
-    
+    for (int i = 0; i < n - 1; i++) {
+        int min = i;
+        for (int j = i + 1; j < n; j++) {
+            if (A[j] < A[min]) {
+                min = j;
+            }
+            if (min != i) {
+                int hold = A[i];
+                A[i] = A[min];
+                A[min] = hold;
+            }
+        }
+    }
 }
 
 //counting sort function
