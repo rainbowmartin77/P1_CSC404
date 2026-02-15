@@ -40,6 +40,7 @@ int main()
     B = (int *)malloc(n * sizeof(int));
     B = A;
 
+    printArray(A, n);
     
     //3. Define two variables start1 and end1 of type clock_t.
     clock_t selectStart;
@@ -47,19 +48,16 @@ int main()
 
     
     //4. Keep the following code to measure the running time of the selection sort algorithm.
-
-    printArray(A, n);
-    printf("\n");
     //start1 = clock();
     selectionSort(A, n);
-    printArray(A, n);
     //end1 = clock();
     //time_spent1 = (double)(end1 - start1) / CLOCKS_PER_SEC;
     //printf("Time taken by selectionSort algorithm is %f sec.\n",time_spent1);
 
-
+    printf("\n");
     //5. repeat steps 3. and 4. to measure the running time of the counting sort algorithm
-
+    countSort(B, n);
+    printArray(B, n);
     return 0;
 }
 
@@ -86,11 +84,41 @@ void countSort(int A[], int n) // n is the size of A
 {
     int k, *B, *C;
     //Write a code to find the value of k that is equal to the maximum value of A
+    k = A[0];
+    for (int i = 1; i < n; i++) {
+        if (k < A[i]) {
+            k = A[i];
+        }
+    }
 
     B = (int*)malloc(n * sizeof(int)); //Dynamic allocation of two temporarily arrays B and C.
     C = (int*)malloc((k+1) * sizeof(int));
 
     //continue the implementation of the counting sort algorithm here.
+    // assign all C indices to 0
+    for (int i = 0; i < k; i++) {
+        C[i] = 0;
+    }
+
+    // c indices now contain the number of elements equal to i
+    for (int i = 0; i < n; i++) {
+        C[A[i]] = C[A[i]] + 1;
+    }
+
+    // c indices contain number of elements less than or equal to
+    for (int i = 1; i < k; i++) {
+        C[i] = C[i] + C[i-1];
+    }
+
+    // place elements in A in final position in B
+    for (int i = n - 1; i >= 0; i--) {
+        B[C[A[i]]-1] = A[i];
+        C[A[i]] = C[A[i]] - 1;
+    }
+
+    for (int i = 0; i < n; i++) {
+        A[i] = B[i];
+    }
 }
 
 //Function to print the content of an array
