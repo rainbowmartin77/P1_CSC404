@@ -9,20 +9,53 @@ void generateInFile(int n);
 
 int main()
 {
-    /*
-    1. Call generateInFile function to generate integer random numbers and store them in a text file
-    2. Copy the numbers from the file to an array A1 and another array A2 (A1=A2). Use dynamic allocation to declare A1 and A2
-    3. Define two variables start1 and end1 of type clock_t.
-    4. Keep the following code to measure the running time of the selection sort algorithm.
+    int n = 100;
+    size_t x = 100;
+    size_t read;
+    int num;
 
-    start1 = clock();
+    //1. Call generateInFile function to generate integer random numbers and store them in a text file
+    generateInFile(n);
+    
+    //2. Copy the numbers from the file to an array A1 and another array A2 (A1=A2). Use dynamic allocation to declare A1 and A2
+    int* A;
+    A = (int *)malloc(n * sizeof(int));
+
+    // open the file
+    FILE *input = fopen("A1.txt", "r");
+
+    // read the size of the input
+    fscanf(input, "%zu", &read);
+    printf("%zu\n", read);
+
+    // read the random numbers
+    for (size_t i = 0; i < n; i++) {
+        fscanf(input, "%d", &A[i]);
+    }
+    // close the input file
+    fclose(input);
+
+    // copy A to B
+    int* B;
+    B = (int *)malloc(n * sizeof(int));
+    B = A;
+
+    
+    //3. Define two variables start1 and end1 of type clock_t.
+    clock_t selectStart;
+    clock_t selectStop;
+
+    
+    //4. Keep the following code to measure the running time of the selection sort algorithm.
+
+    //start1 = clock();
     selectionSort(A, n);
-    end1 = clock();
-    time_spent1 = (double)(end1 - start1) / CLOCKS_PER_SEC;
-    printf("Time taken by selectionSort algorithm is %f sec.\n",time_spent1);
+    //end1 = clock();
+    //time_spent1 = (double)(end1 - start1) / CLOCKS_PER_SEC;
+    //printf("Time taken by selectionSort algorithm is %f sec.\n",time_spent1);
 
 
-    5. repeat steps 3. and 4. to measure the running time of the counting sort algorithm*/
+    //5. repeat steps 3. and 4. to measure the running time of the counting sort algorithm
 
     return 0;
 }
@@ -30,7 +63,7 @@ int main()
 //selection sort function
 void selectionSort(int A[], int n) // n is the size of A
 {
-    //Implement selection sort algorithm here
+    
 }
 
 //counting sort function
