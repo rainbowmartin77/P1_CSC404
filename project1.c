@@ -9,8 +9,7 @@ void generateInFile(int n);
 
 int main()
 {
-    int n = 10;
-    size_t x = 100;
+    int n = 100000;
     size_t read;
     int num;
 
@@ -26,7 +25,6 @@ int main()
 
     // read the size of the input
     fscanf(input, "%zu", &read);
-    printf("%zu\n", read);
 
     // read the random numbers
     for (size_t i = 0; i < n; i++) {
@@ -39,25 +37,31 @@ int main()
     int* B;
     B = (int *)malloc(n * sizeof(int));
     B = A;
-
-    printArray(A, n);
     
     //3. Define two variables start1 and end1 of type clock_t.
     clock_t selectStart;
     clock_t selectStop;
 
-    
     //4. Keep the following code to measure the running time of the selection sort algorithm.
-    //start1 = clock();
+    selectStart = clock();
     selectionSort(A, n);
-    //end1 = clock();
-    //time_spent1 = (double)(end1 - start1) / CLOCKS_PER_SEC;
-    //printf("Time taken by selectionSort algorithm is %f sec.\n",time_spent1);
-
+    selectStop = clock();
+    double time_spent1 = (double)(selectStop - selectStart) / CLOCKS_PER_SEC;
+    printf("Time taken by selectionSort algorithm is %f sec.\n",time_spent1);
     printf("\n");
+
     //5. repeat steps 3. and 4. to measure the running time of the counting sort algorithm
+    // Step 3.
+    clock_t countStart;
+    clock_t countStop;
+
+    // Step 4.
+    countStart = clock();
     countSort(B, n);
-    printArray(B, n);
+    countStop = clock();
+    double time_spent2 = (double)(countStop - countStart) / CLOCKS_PER_SEC;
+    printf("Time taken by countSort algorithm if %f sec.\n", time_spent2);
+    
     return 0;
 }
 
